@@ -1,4 +1,6 @@
+import { Minus, Plus, ShoppingBag, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 type ProductCardProps = {
   src: string;
@@ -17,6 +19,16 @@ function ProductCard({
   descuento,
   tag,
 }: ProductCardProps) {
+  const [count, setCount] = useState(1);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
   return (
     <div className={`w-full rounded-sm flex items-center p-2 bg-white`}>
       <div className="w-fit">
@@ -33,12 +45,12 @@ function ProductCard({
         </div>
         <div className="flex items-center justify-between">
           <div className="flex justify-center items-center">
-            <button className="py-1 px-2 rounded-sm bg-gray-100">+</button>
-            <div className="px-1 bg-gray-300">1</div>
-            <button className="py-1 px-2 rounded-sm bg-gray-100">+</button>
+            <button disabled={count === 1} onClick={decrement} className="py-1 px-2 rounded-sm bg-gray-100"><Minus /></button>
+            <div className="px-1 bg-gray-300">{count}</div>
+            <button onClick={increment} className="py-1 px-2 rounded-sm bg-gray-100"><Plus /></button>
           </div>
-          <button className="flex py-2 px-4 rounded-sm bg-amber-400">
-            <div>icon</div>
+          <button className="flex justify-center items-center py-2 px-4 rounded-sm bg-amber-400">
+            <ShoppingCart className="w-6 h-6 pr-2" />
             Añadir
           </button>
         </div>
