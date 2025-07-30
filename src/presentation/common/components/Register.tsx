@@ -1,0 +1,147 @@
+import Image from "next/image";
+import { SubmitHandler, useForm } from "react-hook-form";
+import {
+  RegisterUserInputs,
+  RegisterUserValidatorSchema,
+} from "../validations/RegisterUserValidator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FaPaperPlane } from "react-icons/fa";
+import axios from "axios";
+
+function RegisterComponent() {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
+  } = useForm<RegisterUserInputs>({
+    resolver: zodResolver(RegisterUserValidatorSchema),
+  });
+
+  const onSubmit: SubmitHandler<RegisterUserInputs> = async (data) => {
+    try {
+      await axios.post(
+        "https://enviosya-backend-production.up.railway.app/users/register",
+        {
+          fullName: data.fullName,
+          email: data.email,
+          password: data.password,
+          role: "Cliente",
+          phone: data.phone,
+        }
+      );
+    } catch (err) {
+      if (axios.isCancel(err)) {
+        return err;
+      }
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col justify-center px-4 bg-gradient-to-br from-white to-slate-100">
+      <div className="text-center mb-8">
+        <h1 className="top-0 text-3xl flex flex-col justify-center items-center font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#333333] to-white">
+          <Image src={"/logo.png"} alt="Logo" width={100} height={100} />
+          <span className="italic text-transparent bg-clip-text bg-gradient-to-b from-[#FDB813] to-[#D4145A]">
+            EnvíosYa
+          </span>
+        </h1>
+        <p className="text-sm text-gray-500">Regístrate para continuar</p>
+      </div>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* <div>
+          <input
+            type="text"
+            className={`${
+              errors.profilePictureUrl ? "border-red-500" : "border-gray-600"
+            }`}
+            {...register("profilePictureUrl")}
+          />
+          {errors.profilePictureUrl && (
+            <p className="mt-1 text-red-400 text-sm">
+              {errors.profilePictureUrl.message}
+            </p>
+          )}
+        </div> */}
+
+        <div>
+          <input
+            type="text"
+            className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary ${
+              errors.fullName ? "border-red-500" : "border-gray-600"
+            }`}
+            placeholder="Nombre y Apellidos"
+            {...register("fullName")}
+          />
+          {errors.fullName && (
+            <p className="mt-1 text-red-400 text-sm">
+              {errors.fullName.message}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <input
+            type="email"
+            className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary ${
+              errors.email ? "border-red-500" : "border-gray-600"
+            }`}
+            placeholder="Correo electrónico"
+            {...register("email")}
+          />
+          {errors.email && (
+            <p className="mt-1 text-red-400 text-sm">{errors.email.message}</p>
+          )}
+        </div>
+
+        <div>
+          <input
+            type="password"
+            className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary ${
+              errors.password ? "border-red-500" : "border-gray-600"
+            }`}
+            placeholder="Contraseña"
+            {...register("password")}
+          />
+          {errors.password && (
+            <p className="mt-1 text-red-400 text-sm">
+              {errors.password.message}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <input
+            type="text"
+            className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary ${
+              errors.phone ? "border-red-500" : "border-gray-600"
+            }`}
+            placeholder="Telefono"
+            {...register("phone")}
+          />
+          {errors.phone && (
+            <p className="mt-1 text-red-400 text-sm">{errors.phone.message}</p>
+          )}
+        </div>
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-[#00C9FF] flex justify-center items-center gap-1 text-white font-semibold py-2 rounded-xl shadow hover:brightness-110 transition"
+        >
+          <FaPaperPlane className="text-lg" />
+          {isSubmitting ? "Registrando..." : "Registrarse"}
+        </button>
+
+        <p className="text-center text-sm text-gray-500">
+          Ya tienes cuenta?{" "}
+          <a href="#" className="text-primary font-medium">
+            Inicia Sesión
+          </a>
+        </p>
+      </form>
+    </div>
+  );
+}
+
+export default RegisterComponent;
