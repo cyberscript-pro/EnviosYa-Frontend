@@ -7,14 +7,25 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FaPaperPlane } from "react-icons/fa";
 import axios from "axios";
+import ProfilePictureUploader, {
+  MAX_FILE_SIZE,
+} from "./ProfilePictureUploader";
 
 function RegisterComponent() {
   const {
+    control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<RegisterUserInputs>({
     resolver: zodResolver(RegisterUserValidatorSchema),
+    defaultValues: {
+      profilePicture: undefined,
+      fullName: "",
+      email: "",
+      password: "",
+      phone: "",
+    },
   });
 
   const onSubmit: SubmitHandler<RegisterUserInputs> = async (data) => {
@@ -40,7 +51,13 @@ function RegisterComponent() {
     <div className="min-h-screen flex flex-col justify-center px-4 bg-gradient-to-br from-white to-slate-100">
       <div className="text-center mb-8">
         <h1 className="top-0 text-3xl flex flex-col justify-center items-center font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#333333] to-white">
-          <Image src={"/logo.png"} alt="Logo" width={100} height={100} />
+          <Image
+            src={"/logo.png"}
+            alt="Logo"
+            width={100}
+            height={100}
+            priority
+          />
           <span className="italic text-transparent bg-clip-text bg-gradient-to-b from-[#FDB813] to-[#D4145A]">
             EnvíosYa
           </span>
@@ -49,20 +66,24 @@ function RegisterComponent() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* <div>
-          <input
-            type="text"
-            className={`${
-              errors.profilePictureUrl ? "border-red-500" : "border-gray-600"
-            }`}
-            {...register("profilePictureUrl")}
+        <div className="w-full flex justify-center items-center mb-8">
+          <ProfilePictureUploader<RegisterUserInputs>
+            name="profilePicture"
+            control={control}
+            rules={{
+              required: "La imagen de perfil es requerida",
+              validate: {
+                fileSize: (value: File | string | undefined) =>
+                  !value ||
+                  typeof value === "string" ||
+                  value.size <= MAX_FILE_SIZE ||
+                  `El archivo es demasiado grande (máx. ${
+                    MAX_FILE_SIZE / 1024 / 1024
+                  }MB)`,
+              },
+            }}
           />
-          {errors.profilePictureUrl && (
-            <p className="mt-1 text-red-400 text-sm">
-              {errors.profilePictureUrl.message}
-            </p>
-          )}
-        </div> */}
+        </div>
 
         <div>
           <input

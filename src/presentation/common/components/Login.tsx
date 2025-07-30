@@ -1,13 +1,17 @@
 import Image from "next/image";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { FaPaperPlane } from "react-icons/fa";
 import {
   LoginUserInputs,
   LoginUserValidatorSchema,
 } from "../validations/LoginUserValidator";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 function LoginComponent() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -16,8 +20,19 @@ function LoginComponent() {
     resolver: zodResolver(LoginUserValidatorSchema),
   });
 
-  const onSubmit = (data: LoginUserInputs) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<LoginUserInputs> = async (data) => {
+    const { data: dataResult } = await axios.post("https://enviosya-backend-production.up.railway.app/auth/login", 
+      {
+        email: data.email,
+        password: data.password
+      }
+    );
+
+  
+  };
+
+  const navigatetoRegister = () => {
+    router.push("/register");
   };
 
   return (
@@ -77,9 +92,12 @@ function LoginComponent() {
 
         <p className="text-center text-sm text-gray-500">
           ¿No tienes cuenta?{" "}
-          <a href="#" className="text-primary font-medium">
+          <button
+            onClick={navigatetoRegister}
+            className="text-primary font-medium"
+          >
             Regístrate
-          </a>
+          </button>
         </p>
       </form>
     </div>
