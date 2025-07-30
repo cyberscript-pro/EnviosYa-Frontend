@@ -15,24 +15,25 @@ function LoginComponent() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<LoginUserInputs>({
     resolver: zodResolver(LoginUserValidatorSchema),
   });
 
   const onSubmit: SubmitHandler<LoginUserInputs> = async (data) => {
-    const { data: dataResult } = await axios.post("https://enviosya-backend-production.up.railway.app/auth/login", 
+    const { data: dataResult } = await axios.post(
+      "https://enviosya-backend-production.up.railway.app/auth/login",
       {
         email: data.email,
-        password: data.password
+        password: data.password,
       }
     );
 
-  
+    if (isSubmitSuccessful) navigateTo("/store");
   };
 
-  const navigatetoRegister = () => {
-    router.push("/register");
+  const navigateTo = (url: string) => {
+    router.push(url);
   };
 
   return (
@@ -89,17 +90,17 @@ function LoginComponent() {
           <FaPaperPlane className="text-lg" />
           {isSubmitting ? "Iniciando Sesión..." : "Iniciar Sesión"}
         </button>
-
-        <p className="text-center text-sm text-gray-500">
-          ¿No tienes cuenta?{" "}
-          <button
-            onClick={navigatetoRegister}
-            className="text-primary font-medium"
-          >
-            Regístrate
-          </button>
-        </p>
       </form>
+
+      <p className="text-center text-sm text-gray-500">
+        ¿No tienes cuenta?{" "}
+        <button
+          onClick={() => navigateTo("/register")}
+          className="text-primary font-medium"
+        >
+          Regístrate
+        </button>
+      </p>
     </div>
   );
 }

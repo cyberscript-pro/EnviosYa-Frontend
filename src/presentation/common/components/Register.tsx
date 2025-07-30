@@ -10,8 +10,12 @@ import axios from "axios";
 import ProfilePictureUploader, {
   MAX_FILE_SIZE,
 } from "./ProfilePictureUploader";
+import { useRouter } from "next/navigation";
 
 function RegisterComponent() {
+
+  const router = useRouter();
+
   const {
     control,
     handleSubmit,
@@ -30,6 +34,13 @@ function RegisterComponent() {
 
   const onSubmit: SubmitHandler<RegisterUserInputs> = async (data) => {
     try {
+      const form = new FormData();
+      form.append("file", data.profilePicture);
+
+      const { data: profilePictureUrl } = await axios.post(
+        "https://enviosya-backend-production.up.railway.app/users/upload-profile-picture",
+        form
+      );
       await axios.post(
         "https://enviosya-backend-production.up.railway.app/users/register",
         {
@@ -38,14 +49,23 @@ function RegisterComponent() {
           password: data.password,
           role: "Cliente",
           phone: data.phone,
+          profilePictureUrl
         }
       );
+
+      if(isSubmitSuccessful)
+        navigateToLogin();
+
     } catch (err) {
       if (axios.isCancel(err)) {
         return err;
       }
     }
   };
+
+  const navigateToLogin = () => {
+    router.push("/login");
+  }
 
   return (
     <div className="min-h-screen flex flex-col justify-center px-4 bg-gradient-to-br from-white to-slate-100">
@@ -153,14 +173,14 @@ function RegisterComponent() {
           <FaPaperPlane className="text-lg" />
           {isSubmitting ? "Registrando..." : "Registrarse"}
         </button>
+      </form>
 
         <p className="text-center text-sm text-gray-500">
           Ya tienes cuenta?{" "}
-          <a href="#" className="text-primary font-medium">
+          <button onClick={navigateToLogin} className="text-primary font-medium">
             Inicia Sesión
-          </a>
+          </button>
         </p>
-      </form>
     </div>
   );
 }

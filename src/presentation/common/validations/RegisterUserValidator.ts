@@ -15,15 +15,19 @@ export const RegisterUserValidatorSchema = z.object({
     .string()
     .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
   profilePicture: z
-    .union([
+    .instanceof(File)
+    .refine((file) => file.size <= MAX_FILE_SIZE)
+    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
+  phone: z.string().optional(),
+});
+
+export type RegisterUserInputs = z.infer<typeof RegisterUserValidatorSchema>;
+/*
+.union([
       z.url(),
       z
         .instanceof(File)
         .refine((file) => file.size <= MAX_FILE_SIZE)
         .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
     ])
-    .optional(),
-  phone: z.string().optional(),
-});
-
-export type RegisterUserInputs = z.infer<typeof RegisterUserValidatorSchema>;
+    .optional() */
