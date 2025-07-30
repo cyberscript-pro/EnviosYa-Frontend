@@ -2,6 +2,7 @@ import z from "zod";
 import { MAX_FILE_SIZE } from "../components/ProfilePictureUploader";
 
 const ACCEPTED_IMAGE_TYPES = [
+  "image/jpg",
   "image/jpeg",
   "image/png",
   "image/gif",

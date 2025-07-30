@@ -92,7 +92,7 @@ function LoginComponent() {
         </button>
       </form>
 
-      <p className="text-center text-sm text-gray-500">
+      <p className="text-center text-sm text-gray-500 mt-4">
         ¿No tienes cuenta?{" "}
         <button
           onClick={() => navigateTo("/register")}

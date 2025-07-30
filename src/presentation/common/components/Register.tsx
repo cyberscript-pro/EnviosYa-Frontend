@@ -13,7 +13,6 @@ import ProfilePictureUploader, {
 import { useRouter } from "next/navigation";
 
 function RegisterComponent() {
-
   const router = useRouter();
 
   const {
@@ -49,13 +48,11 @@ function RegisterComponent() {
           password: data.password,
           role: "Cliente",
           phone: data.phone,
-          profilePictureUrl
+          profilePicture: profilePictureUrl,
         }
       );
 
-      if(isSubmitSuccessful)
-        navigateToLogin();
-
+      if (isSubmitSuccessful) navigateToLogin();
     } catch (err) {
       if (axios.isCancel(err)) {
         return err;
@@ -65,7 +62,7 @@ function RegisterComponent() {
 
   const navigateToLogin = () => {
     router.push("/login");
-  }
+  };
 
   return (
     <div className="min-h-screen flex flex-col justify-center px-4 bg-gradient-to-br from-white to-slate-100">
@@ -175,12 +172,12 @@ function RegisterComponent() {
         </button>
       </form>
 
-        <p className="text-center text-sm text-gray-500">
-          Ya tienes cuenta?{" "}
-          <button onClick={navigateToLogin} className="text-primary font-medium">
-            Inicia Sesión
-          </button>
-        </p>
+      <p className="text-center text-sm text-gray-500 mt-4">
+        Ya tienes cuenta?{" "}
+        <button onClick={navigateToLogin} className="text-primary font-medium">
+          Inicia Sesión
+        </button>
+      </p>
     </div>
   );
 }
