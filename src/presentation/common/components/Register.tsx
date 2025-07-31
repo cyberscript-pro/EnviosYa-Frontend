@@ -11,8 +11,16 @@ import ProfilePictureUploader, {
   MAX_FILE_SIZE,
 } from "./ProfilePictureUploader";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+interface Error {
+  properyName: string;
+  errorMessage: string;
+}
 
 function RegisterComponent() {
+  const [requestErrors, setRequestErrors] = useState<Error[]>([]);
+
   const router = useRouter();
 
   const {
@@ -54,8 +62,17 @@ function RegisterComponent() {
 
       if (isSubmitSuccessful) navigateToLogin();
     } catch (err) {
-      if (axios.isCancel(err)) {
-        return err;
+      if (axios.isAxiosError(err) && err.response) {
+        const status = err.response.status;
+        const data = err.response.data;
+
+        console.log(data);
+
+        if (status === 400 && data) {
+          setRequestErrors(data);
+        }
+      } else {
+        console.error("Error de red o inesperado", err);
       }
     }
   };
@@ -81,6 +98,16 @@ function RegisterComponent() {
         </h1>
         <p className="text-sm text-gray-500">Regístrate para continuar</p>
       </div>
+
+      {requestErrors.length > 0 && (
+        <div className="flex flex-col items-center gap-2">
+          {requestErrors.map((error, index) => (
+            <p key={index} className="text-red-500 text-sm">
+              {error.errorMessage}
+            </p>
+          ))}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="w-full flex justify-center items-center mb-8">
