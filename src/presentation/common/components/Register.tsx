@@ -36,7 +36,7 @@ function RegisterComponent() {
       const form = new FormData();
       form.append("file", data.profilePicture);
 
-      const { data: profilePictureUrl } = await axios.post(
+      const { data: profilePicture } = await axios.post(
         "https://enviosya-backend-production.up.railway.app/users/upload-profile-picture",
         form
       );
@@ -48,7 +48,7 @@ function RegisterComponent() {
           password: data.password,
           role: "Cliente",
           phone: data.phone,
-          profilePicture: profilePictureUrl,
+          profilePicture: profilePicture.publicUrl,
         }
       );
 
