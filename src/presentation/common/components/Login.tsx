@@ -8,8 +8,17 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useState } from "react";
+
+type Error = {
+  properyName: string;
+  errorMessage: string;
+  description: string;
+};
 
 function LoginComponent() {
+  const [requestErrors, setRequestErrors] = useState<Error[]>([]);
+
   const router = useRouter();
 
   const {
@@ -21,15 +30,30 @@ function LoginComponent() {
   });
 
   const onSubmit: SubmitHandler<LoginUserInputs> = async (data) => {
-    const { data: dataResult } = await axios.post(
-      "https://enviosya-backend-production.up.railway.app/auth/login",
-      {
-        email: data.email,
-        password: data.password,
-      }
-    );
+    try {
+      const { data: dataResult } = await axios.post(
+        "https://enviosya-backend-production.up.railway.app/auth/login",
+        {
+          email: data.email,
+          password: data.password,
+        }
+      );
 
-    if (isSubmitSuccessful) navigateTo("/store");
+      console.log(dataResult);
+
+      if (isSubmitSuccessful && dataResult.logged) navigateTo("/store");
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        const status = err.response.status;
+        const data = err.response.data;
+
+        if (status === 400 && data) {
+          setRequestErrors(data);
+        }
+      } else {
+        console.error("Error de red o inesperado", err);
+      }
+    }
   };
 
   const navigateTo = (url: string) => {
@@ -50,6 +74,16 @@ function LoginComponent() {
           Inicia sesión o regístrate para continuar
         </p>
       </div>
+
+      {requestErrors.length > 0 && (
+        <div className="flex flex-col items-center gap-2">
+          {requestErrors.map((error, index) => (
+            <p key={index} className="text-red-500 text-sm">
+              {error.errorMessage ? error.errorMessage : error.description}
+            </p>
+          ))}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>

@@ -2,6 +2,7 @@
 import BottomBar from "@/src/presentation/common/components/BottomBar";
 import ProductCard from "@/src/presentation/common/components/card";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 type Product = {
@@ -15,26 +16,39 @@ type Product = {
 };
 
 function ProductPage() {
+const router = useRouter();
+
   const [data, setData] = useState<Product[]>();
-  
-    const buscarProductos = async () => {
-      try {
-        const { data } = await axios.get<Product[]>(
-          "https://enviosya-backend-production.up.railway.app/products"
-        );
-  
-        setData(data);
-      } catch (err) {
-        if (axios.isCancel(err)) {
-          return err;
+
+  const navigateTo = (url: string) => {
+    router.push(url);
+  }
+
+
+  const buscarProductos = async () => {
+    try {
+      const { data } = await axios.get<Product[]>(
+        "https://enviosya-backend-production.up.railway.app/products",
+        { withCredentials: true }
+      );
+
+      setData(data);
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        const status = err.response.status;
+
+        if(status === 401)
+        {
+          navigateTo("/login")
         }
       }
-    };
-  
-    useEffect(() => {
-      buscarProductos();
-    }, []);
-    
+    }
+  };
+
+  useEffect(() => {
+    buscarProductos();
+  }, []);
+
   return (
     <div className="w-full min-h-screen">
       <span>Productos</span>
