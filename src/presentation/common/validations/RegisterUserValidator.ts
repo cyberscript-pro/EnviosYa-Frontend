@@ -18,7 +18,8 @@ export const RegisterUserValidatorSchema = z.object({
   profilePicture: z
     .instanceof(File)
     .refine((file) => file.size <= MAX_FILE_SIZE)
-    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
+    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type))
+    .optional(),
   phone: z.string().optional(),
 });
 

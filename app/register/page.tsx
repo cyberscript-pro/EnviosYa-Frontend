@@ -1,5 +1,5 @@
 "use client";
-import RegisterComponent from "@/src/presentation/common/components/Register";
+import RegisterComponent from "@/src/presentation/common/components/RegisterComponent";
 
 function RegisterPage() {
   return <RegisterComponent />;

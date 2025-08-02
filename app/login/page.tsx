@@ -1,5 +1,5 @@
 "use client";
-import LoginComponent from "@/src/presentation/common/components/Login";
+import LoginComponent from "@/src/presentation/common/components/LoginComponent";
 
 function LoginPage() {
   return <LoginComponent />;

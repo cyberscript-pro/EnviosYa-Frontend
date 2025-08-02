@@ -16,6 +16,9 @@ type Error = {
   description: string;
 };
 
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "https://enviosya-backend-production.up.railway.app";
+
 function LoginComponent() {
   const [requestErrors, setRequestErrors] = useState<Error[]>([]);
 
@@ -32,16 +35,19 @@ function LoginComponent() {
   const onSubmit: SubmitHandler<LoginUserInputs> = async (data) => {
     try {
       const { data: dataResult } = await axios.post(
-        "https://enviosya-backend-production.up.railway.app/auth/login",
+        "/auth/login",
         {
           email: data.email,
           password: data.password,
+        },
+        {
+          withCredentials: true,
         }
       );
 
       console.log(dataResult);
 
-      if (isSubmitSuccessful && dataResult.logged) navigateTo("/store");
+      if (dataResult.logged) navigateTo("/store");
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         const status = err.response.status;

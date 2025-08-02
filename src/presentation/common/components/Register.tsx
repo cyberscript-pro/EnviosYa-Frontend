@@ -42,7 +42,7 @@ function RegisterComponent() {
   const onSubmit: SubmitHandler<RegisterUserInputs> = async (data) => {
     try {
       const form = new FormData();
-      form.append("file", data.profilePicture);
+      form.append("file", data.profilePicture as File);
 
       const { data: profilePicture } = await axios.post(
         "https://enviosya-backend-production.up.railway.app/users/upload-profile-picture",

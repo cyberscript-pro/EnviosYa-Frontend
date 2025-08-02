@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/src/presentation/common/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "EnviosYa",
-  description: "Tienda EnviosYa su mejor opcion para mandarle a tu familia en Cuba todo lo que necesita",
+  description:
+    "Tienda EnviosYa su mejor opcion para mandarle a tu familia en Cuba todo lo que necesita",
 };
 
 export default function RootLayout({

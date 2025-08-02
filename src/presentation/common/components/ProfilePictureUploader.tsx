@@ -163,8 +163,8 @@ const ProfilePictureUploader = <T extends Record<string, any>>({
 
   return (
     <div className="flex flex-col items-center space-y-4">
-      <div className="relative w-full h-40 flex justify-center items-center ">
-        <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-md">
+      <div className="relative w-full h-30 flex justify-center items-center ">
+        <div className="relative w-30 h-30 rounded-full overflow-hidden border-4 border-white shadow-md">
           {preview ? (
             <img
               src={preview}
@@ -172,12 +172,16 @@ const ProfilePictureUploader = <T extends Record<string, any>>({
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-black flex items-center justify-center">
-              <User className="h-16 w-16 text-gray-400" />
-            </div>
+            <Image
+              src={"/UploadPhoto.svg"}
+              alt="Profile preview"
+              className="w-full h-full object-cover"
+              width={25}
+              height={25}
+            />
           )}
         </div>
-        <div className="absolute top-0 right-3 flex flex-col gap-4 justify-center">
+        <div className="absolute top-3 -right-8 flex flex-col gap-4 justify-center">
           {/* Botón editar */}
           <button
             type="button"
@@ -301,10 +305,6 @@ const ProfilePictureUploader = <T extends Record<string, any>>({
       {error && (
         <p className="mt-2 text-sm text-red-600 text-center">{error.message}</p>
       )}
-
-      <p className="mt-2 text-xs text-gray-500 text-center">
-        Formatos: JPEG, PNG, GIF, WEBP (máx. {MAX_FILE_SIZE / 1024 / 1024}MB)
-      </p>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 import BottomBar from "@/src/presentation/common/components/BottomBar";
-import ProductCard from "@/src/presentation/common/components/card";
+import ProductCard from "@/src/presentation/common/components/ProductCard";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -16,14 +16,13 @@ type Product = {
 };
 
 function ProductPage() {
-const router = useRouter();
+  const router = useRouter();
 
   const [data, setData] = useState<Product[]>();
 
   const navigateTo = (url: string) => {
     router.push(url);
-  }
-
+  };
 
   const buscarProductos = async () => {
     try {
@@ -37,9 +36,8 @@ const router = useRouter();
       if (axios.isAxiosError(err) && err.response) {
         const status = err.response.status;
 
-        if(status === 401)
-        {
-          navigateTo("/login")
+        if (status === 401) {
+          navigateTo("/login");
         }
       }
     }
@@ -51,7 +49,6 @@ const router = useRouter();
 
   return (
     <div className="w-full min-h-screen">
-      <span>Productos</span>
       {!data && (
         <div className="w-full min-h-screen bg-gray-300 flex justify-center items-center text-xl">
           Cargando...

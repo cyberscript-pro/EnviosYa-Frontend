@@ -1,6 +1,6 @@
 "use client";
 import BottomBar from "@/src/presentation/common/components/BottomBar";
-import ProductCard from "@/src/presentation/common/components/card";
+import ProductCard from "@/src/presentation/common/components/ProductCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
