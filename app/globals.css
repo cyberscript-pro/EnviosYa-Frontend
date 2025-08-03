@@ -120,3 +120,29 @@
     @apply bg-background text-foreground;
   }
 }
+
+.nav-icon.active::after {
+  content: "";
+  position: absolute;
+  bottom: 12px;
+  height: 4px;
+  width: 24px;
+  background-color: #004CFF;
+  border-radius: 9999px;
+  transform: scaleX(1);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.nav-icon::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  width: 24px;
+  background-color: #004CFF;
+  border-radius: 9999px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}

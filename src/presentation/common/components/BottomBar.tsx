@@ -1,8 +1,6 @@
 import React from "react";
 import BarItem from "./BarItem";
-import {
-  AlignJustify,
-} from "lucide-react";
+import { AlignJustify } from "lucide-react";
 import {
   BuildingStorefrontIcon,
   CubeIcon,
@@ -12,42 +10,41 @@ import {
 import { usePathname } from "next/navigation";
 
 function BottomBar() {
-
   const pathname = usePathname();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 flex justify-between px-2 items-center w-full h-16 bg-white/95">
-      <BarItem
-        title="Menu"
-        icon={AlignJustify}
-        tag="menu"
-        pathname={pathname}
-      />
+    <footer className="fixed bottom-0 left-0 right-0 flex justify-between px-2 items-center w-full h-16 bg-white/95">
       <BarItem
         title="Tienda"
-        icon={BuildingStorefrontIcon}
+        icon={"/Shop.svg"}
         tag="store"
         pathname={pathname}
       />
       <BarItem
-        title="Productos"
-        icon={CubeIcon}
-        tag="products"
+        title="Categorias"
+        icon={"/Categories.svg"}
+        tag="categories"
+        pathname={pathname}
+      />
+      <BarItem
+        title="Favoritos"
+        icon={"/WishList.svg"}
+        tag="favorites"
         pathname={pathname}
       />
       <BarItem
         title="Carrito"
-        icon={ShoppingBagIcon}
+        icon={"Cart.svg"}
         tag="cart"
         pathname={pathname}
       />
       <BarItem
         title="Perfil"
-        icon={UserCircleIcon}
+        icon={"/Profile.svg"}
         tag="profile"
         pathname={pathname}
       />
-    </div>
+    </footer>
   );
 }
 

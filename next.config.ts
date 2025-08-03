@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  devIndicators: false,
+  images: {
+    domains: ["share.google"],
+  },
 };
 
 export default nextConfig;

@@ -27,7 +27,7 @@ const nunito = Nunito_Sans({
 const poppins = Poppins({
   variable: "--font-gest-poppins",
   subsets: ["latin"],
-  weight: "100",
+  weight: "200",
 });
 interface Error {
   properyName: string;
@@ -143,7 +143,7 @@ function RegisterComponent() {
             <input
               type="text"
               placeholder="Nombre y Apellidos"
-              className={`${poppins.className} w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary`}
+              className={`${poppins.className} w-full px-4 py-2 text-black placeholder:text-black border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary`}
               {...register("fullName")}
             />
             {errors.fullName && (
@@ -157,7 +157,7 @@ function RegisterComponent() {
             <input
               type="email"
               placeholder="Email"
-              className={`${poppins.className} w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary`}
+              className={`${poppins.className} w-full px-4 py-2 text-black placeholder:text-black border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary`}
               {...register("email")}
             />
             {errors.email && (
@@ -171,7 +171,7 @@ function RegisterComponent() {
             <input
               type="password"
               placeholder="Password"
-              className={`${poppins.className} w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary`}
+              className={`${poppins.className} w-full px-4 py-2 text-black placeholder:text-black border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary`}
               {...register("password")}
             />
             {errors.password && (
@@ -195,7 +195,7 @@ function RegisterComponent() {
             </button>
             <button
               onClick={() => navigateTo("/started")}
-              className={`${nunito.className} text-xs text-[#202020] pt-3`}
+              className={`${nunito.className} text-[#202020] pt-3`}
             >
               Cancel
             </button>

@@ -24,7 +24,7 @@ const nunito = Nunito_Sans({
 const poppins = Poppins({
   variable: "--font-gest-poppins",
   subsets: ["latin"],
-  weight: "100",
+  weight: "200",
 });
 
 type Error = {
@@ -120,8 +120,8 @@ function LoginComponent() {
           <div>
             <input
               type="email"
+              className={`${poppins.className} w-full px-4 py-2 text-black placeholder:text-black border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary`}
               placeholder="Email"
-              className={`${poppins.className} w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary`}
               {...register("email")}
             />
             {errors.email && (
@@ -134,8 +134,8 @@ function LoginComponent() {
           <div>
             <input
               type="password"
+              className={`${poppins.className} w-full px-4 py-2 pb-2 text-black placeholder:text-black border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary`}
               placeholder="Password"
-              className={`${poppins.className} w-full px-4 py-2 pb-2 border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary`}
               {...register("password")}
             />
             {errors.password && (
@@ -158,7 +158,7 @@ function LoginComponent() {
             </button>
             <button
               onClick={() => navigateTo("/started")}
-              className={`${nunito.className} text-xs text-[#202020] pt-3`}
+              className={`${nunito.className} text-[#202020] pt-3`}
             >
               Cancel
             </button>
