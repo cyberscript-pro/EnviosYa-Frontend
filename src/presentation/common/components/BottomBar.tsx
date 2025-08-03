@@ -13,7 +13,7 @@ function BottomBar() {
   const pathname = usePathname();
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 flex justify-between px-2 items-center w-full h-16 bg-white/95">
+    <footer className="fixed bottom-0 left-0 right-0 flex justify-between px-2 items-center w-full h-16 bg-white/95 shadow-top">
       <BarItem
         title="Tienda"
         icon={"/Shop.svg"}

@@ -11,6 +11,8 @@ const nunito = Nunito_Sans({
 });
 
 type ProductCardProps = {
+  id: string;
+  openSheet: () => void;
   font: NextFontWithVariable;
   src: string;
   alt: string;
@@ -18,7 +20,15 @@ type ProductCardProps = {
   price: number;
 };
 
-function ProductCard({ font, src, alt, title, price }: ProductCardProps) {
+function ProductCard({
+  id,
+  openSheet,
+  font,
+  src,
+  alt,
+  title,
+  price,
+}: ProductCardProps) {
   const [count, setCount] = useState(1);
 
   const increment = () => {
@@ -30,7 +40,10 @@ function ProductCard({ font, src, alt, title, price }: ProductCardProps) {
   };
 
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+    <div
+      onClick={openSheet}
+      className="border border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+    >
       {/* Placeholder de imagen */}
       <div className="bg-gray-200 h-42 w-full" />
       {/* <div className="w-fit">

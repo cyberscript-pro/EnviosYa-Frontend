@@ -1,5 +1,6 @@
 "use client";
 import BottomBar from "@/src/presentation/common/components/BottomBar";
+import DetailProduct from "@/src/presentation/common/components/DetailProduct";
 import { PageTransition } from "@/src/presentation/common/components/PageTransition";
 import ProductCard from "@/src/presentation/common/components/ProductCard";
 import axios from "axios";
@@ -37,6 +38,12 @@ type Product = {
 
 function HomePage() {
   const [data, setData] = useState<Product[]>();
+  const [isOpen, setIsOpen] = useState(false);
+  const [detailId, setDetailId] = useState("");
+
+  const toggleSheet = () => {
+    setIsOpen(!isOpen);
+  };
 
   const router = useRouter();
 
@@ -70,7 +77,7 @@ function HomePage() {
   return (
     <div className=" w-full min-h-screen">
       <PageTransition />
-      <header className="py-4 px-2 flex justify-around items-center gap-4 font-bold sticky top-0 bg-white z-50 shadow-lg">
+      <header className="py-4 px-2 flex justify-around items-center gap-4 font-bold sticky top-0 bg-white z-40 shadow-lg">
         <span className={`${raleway.className}`}>EnviosYA</span>
         <input
           type="text"
@@ -88,15 +95,21 @@ function HomePage() {
           {data?.map((product) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               font={nunito}
               src={product.images[0]}
               alt={product.name}
               title={product.name}
               price={product.price}
+              openSheet={() => {
+                setDetailId(product.id);
+                toggleSheet();
+              }}
             />
           ))}
         </section>
       </main>
+      <DetailProduct isOpen={isOpen} toggleSheet={toggleSheet} id={detailId} />
       <BottomBar />
     </div>
   );
