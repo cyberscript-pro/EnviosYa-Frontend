@@ -8,6 +8,7 @@ import {
 } from "../validations/LoginUserValidator";
 import axios from "axios";
 import { useState } from "react";
+import { PageTransition } from "./PageTransition";
 
 const raleway = Raleway({
   variable: "--font-gest-raleway",
@@ -92,6 +93,8 @@ function LoginComponent() {
       className="w-full h-screen p-3 flex flex-col justify-around items-center bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/Bubbles.png')" }}
     >
+      <PageTransition />
+
       <div></div>
       <div className={`w-full bottom-0 flex flex-col justify-center`}>
         <h2

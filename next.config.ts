@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
   },
   devIndicators: false,
   images: {
-    domains: ["share.google"],
+    remotePatterns: [],
   },
 };
 

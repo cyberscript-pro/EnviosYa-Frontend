@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Nunito_Sans, Raleway } from "next/font/google";
 import { useRouter } from "next/navigation";
+import { PageTransition } from "./PageTransition";
 
 const raleway = Raleway({
   variable: "--font-gest-raleway",
@@ -23,6 +24,7 @@ function GetStarted() {
 
   return (
     <div className="w-full h-screen p-3 flex flex-col justify-around items-center">
+      <PageTransition />
       <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
         <div className="w-32 h-32 rounded-full bg-white shadow-xl shadow-gray-200 flex justify-center items-center">
           <Image src={"/prueba.png"} alt="Logo" width={80} height={80} />
@@ -41,7 +43,7 @@ function GetStarted() {
         >
           <span>Let's get started</span>
         </button>
-        <div className="flex justify-center items-center gap-4 pt-2 pb-10">
+        <div className="flex justify-center items-center gap-4 pt-2 pb-20">
           <h4 className={`${nunito.className} text-xs text-[#202020]`}>
             I already have an account
           </h4>

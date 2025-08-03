@@ -11,6 +11,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import axios from "axios";
+import { PageTransition } from "./PageTransition";
 
 const raleway = Raleway({
   variable: "--font-gest-raleway",
@@ -109,6 +110,8 @@ function RegisterComponent() {
       className="w-full h-screen p-3 flex flex-col justify-around items-center bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/BubblesRegister.png')" }}
     >
+      <PageTransition />
+
       <div></div>
       <div className={`w-full bottom-0 flex flex-col justify-center`}>
         <h2

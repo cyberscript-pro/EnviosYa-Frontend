@@ -1,24 +1,24 @@
 import { Minus, Plus, ShoppingBag, ShoppingCart } from "lucide-react";
+import { NextFontWithVariable } from "next/dist/compiled/@next/font";
+import { Nunito_Sans } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
 
+const nunito = Nunito_Sans({
+  variable: "--font-gest-sans",
+  weight: "700",
+  subsets: ["latin"],
+});
+
 type ProductCardProps = {
+  font: NextFontWithVariable;
   src: string;
   alt: string;
   title: string;
   price: number;
-  descuento: number;
-  tag: string;
 };
 
-function ProductCard({
-  src,
-  alt,
-  title,
-  price,
-  descuento,
-  tag,
-}: ProductCardProps) {
+function ProductCard({ font, src, alt, title, price }: ProductCardProps) {
   const [count, setCount] = useState(1);
 
   const increment = () => {
@@ -38,12 +38,12 @@ function ProductCard({
       </div> */}
 
       <div className="p-3">
-        <h3 className="mb-2 text-gray-800">{title}</h3>
+        <h3 className={`${font.className} mb-2 text-gray-800`}>{title}</h3>
         {/* <p className="text-gray-600 mb-4">
           {product.description}
         </p> */}
         <div className="flex justify-between items-center">
-          <span className="text-lg font-bold text-gray-900">
+          <span className={`${nunito.className} text-lg text-gray-900`}>
             ${price.toFixed(2)}
           </span>
         </div>

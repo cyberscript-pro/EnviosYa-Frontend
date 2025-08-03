@@ -1,5 +1,6 @@
 "use client";
 import BottomBar from "@/src/presentation/common/components/BottomBar";
+import { PageTransition } from "@/src/presentation/common/components/PageTransition";
 import ProductCard from "@/src/presentation/common/components/ProductCard";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -49,23 +50,23 @@ function ProductPage() {
 
   return (
     <div className="w-full min-h-screen">
+      <PageTransition />
+
       {!data && (
         <div className="w-full min-h-screen bg-gray-300 flex justify-center items-center text-xl">
           Cargando...
         </div>
       )}
       <div className="p-3 bg-gray-300 w-full min-h-screen flex flex-col gap-3">
-        {data?.map((product) => (
+        {/* {data?.map((product) => (
           <ProductCard
             key={product.id}
             src={"/next.svg"}
             alt={product.name}
             title={product.name}
             price={product.price}
-            descuento={0.22}
-            tag="Envio gratis"
           />
-        ))}
+        ))} */}
       </div>
       <BottomBar />
     </div>

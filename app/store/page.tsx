@@ -1,5 +1,6 @@
 "use client";
 import BottomBar from "@/src/presentation/common/components/BottomBar";
+import { PageTransition } from "@/src/presentation/common/components/PageTransition";
 import ProductCard from "@/src/presentation/common/components/ProductCard";
 import axios from "axios";
 import { Raleway, Nunito_Sans, Poppins } from "next/font/google";
@@ -14,7 +15,7 @@ const raleway = Raleway({
 
 const nunito = Nunito_Sans({
   variable: "--font-gest-sans",
-  weight: "200",
+  weight: "300",
   subsets: ["latin"],
 });
 
@@ -68,7 +69,8 @@ function HomePage() {
 
   return (
     <div className=" w-full min-h-screen">
-      <header className="py-4 px-2 flex justify-around items-center gap-4 font-bold sticky top-0 bg-white z-50">
+      <PageTransition />
+      <header className="py-4 px-2 flex justify-around items-center gap-4 font-bold sticky top-0 bg-white z-50 shadow-lg">
         <span className={`${raleway.className}`}>EnviosYA</span>
         <input
           type="text"
@@ -86,12 +88,11 @@ function HomePage() {
           {data?.map((product) => (
             <ProductCard
               key={product.id}
+              font={nunito}
               src={product.images[0]}
               alt={product.name}
               title={product.name}
               price={product.price}
-              descuento={0.22}
-              tag="Envio gratis"
             />
           ))}
         </section>
